@@ -1,11 +1,13 @@
 # DataEngineering
 
-Репозиторий для командной разработки приложения, которое позволяет генерировать пропущенные слова в предложении,
+Данное приложение позволяет генерировать пропущенные слова в предложении,
 используя обученную нейросеть `bert-base-uncased`.
 
 ## Пример использования
 
 ```
+from MaskFiller import MaskFiller
+
 maskFiller = MaskFiller()  # Создание экземпляра класса MaskFiller
 maskFiller.fill_mask("Would you like to drink [MASK] with me?")  # Заполнение маски
 ```
