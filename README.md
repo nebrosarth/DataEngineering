@@ -6,6 +6,8 @@
 ## Пример использования
 
 ```
+from MaskFiller import MaskFiller
+
 maskFiller = MaskFiller()  # Создание экземпляра класса MaskFiller
 maskFiller.fill_mask("Would you like to drink [MASK] with me?")  # Заполнение маски
 ```
