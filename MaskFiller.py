@@ -5,11 +5,16 @@ class MaskFiller:
     def __init__(self):
         self.unmasker = pipeline('fill-mask', model='bert-base-uncased', device=0)
 
-    def print_results(self, results):
+    def format_results(self, results, colorful=False):
+        formatted_results = []
         for i in range(len(results)):
             result = results[i]
-            print(f"Variant #{i}, word={result['token_str']}: {result['sequence']}")
+            if colorful:
+                formatted_results.append(f"Variant #{i}, word=**:violet[{result['token_str']}]**: {result['sequence']}")
+            else:
+                formatted_results.append(f"Variant #{i}, word={result['token_str']}: {result['sequence']}")
+        return formatted_results
 
-    def fill_mask(self, text):
+    def fill_mask(self, text, colorful=False):
         results = self.unmasker(text)
-        self.print_results(results)
+        return self.format_results(results, colorful)
