@@ -3,7 +3,7 @@ from transformers import pipeline
 
 class MaskFiller:
     def __init__(self):
-        self.unmasker = pipeline('fill-mask', model='bert-base-uncased', device=0)
+        self.unmasker = pipeline('fill-mask', model='bert-base-uncased')
 
     def format_results(self, results, colorful=False):
         formatted_results = []
