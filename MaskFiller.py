@@ -1,14 +1,21 @@
 from transformers import pipeline
+from transformers.pipelines import PipelineException
 
 
 class MaskFiller:
+    """
+    This class uses a BERT model to fill in the blank in a sentence.
+    """
+
     def __init__(self):
         self.unmasker = pipeline('fill-mask', model='bert-base-uncased')
 
     def format_results(self, results, colorful=False):
+        """
+        Formats the results of the fill-mask operation.
+        """
         formatted_results = []
-        for i in range(len(results)):
-            result = results[i]
+        for i, result in enumerate(results):
             if colorful:
                 formatted_results.append(f"Variant #{i}, word=**:violet[{result['token_str']}]**: {result['sequence']}")
             else:
@@ -16,5 +23,11 @@ class MaskFiller:
         return formatted_results
 
     def fill_mask(self, text, colorful=False):
-        results = self.unmasker(text)
-        return self.format_results(results, colorful)
+        """
+        Fills in the blank in the given text.
+        """
+        try:
+            results = self.unmasker(text)
+            return self.format_results(results, colorful)
+        except PipelineException:
+            raise
