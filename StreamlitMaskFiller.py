@@ -1,11 +1,10 @@
 from MaskFiller import MaskFiller
-
 import streamlit as st
-import tensorflow
+from transformers.pipelines import PipelineException
 
 st.title("Mask Filler")
 st.write("This app uses a :blue[BERT] model to fill in the blank in a sentence.")
-# use user input to fill in the blank
+
 user_input = st.text_input("Enter a sentence with a blank:")
 if user_input != "":
     st.write(f"Your sentence: {user_input}")
@@ -14,9 +13,8 @@ if user_input != "":
     try:
         results = maskFiller.fill_mask(user_input, colorful=True)
 
-        # Pretty print the results
         for result in results:
             st.write(result)
-    except:
-        st.write(":red[Input error.]")
+    except PipelineException:
+        st.write(":red[An error occurred while processing your request.]")
         st.write("Example: :orange[Would you like to [MASK] with me?]")
